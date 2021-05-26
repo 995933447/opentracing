@@ -1,18 +1,19 @@
 package opentracing
 
 import (
+	"github.com/995933447/opentracing/tracer_config"
+	zipkinTracerConfig "github.com/995933447/opentracing/tracer_config/zipkin"
 	"github.com/opentracing/opentracing-go"
 	opentracingWrapper "github.com/openzipkin-contrib/zipkin-go-opentracing"
 	"github.com/openzipkin/zipkin-go"
 	zipkinHttpReporter "github.com/openzipkin/zipkin-go/reporter/http"
-	"github.com/995933447/opentracing/tracer_config"
-	zipkinTracerConfig "github.com/995933447/opentracing/tracer_config/zipkin"
 )
 
 const (
 	ZipKinTracerDriver = 0
 )
 
+// Build a global tracer by specific opentracing driver.such as zipkin,jeager.
 func BuildGlobalTracer(tracerDriverType int, tracerConfig *tracer_config.TracerConfig) error {
 	var err error
 	switch tracerDriverType {
@@ -53,6 +54,7 @@ func buildZipkinGlobalTracer(config *zipkinTracerConfig.TracerConfig) error {
 	return nil
 }
 
+// Build a zikin deriver gloabl tracer.
 func BuildDefaultGlobalTracer(hostPort, brokerAddress, serviceName string, sampleType zipkinTracerConfig.SampleType) error {
 	var tracerConfig tracer_config.TracerConfig
 	theZipkinTracerConfig := zipkinTracerConfig.NewTracerConfig(brokerAddress, serviceName, hostPort, sampleType)

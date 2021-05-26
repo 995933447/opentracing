@@ -1,8 +1,8 @@
 package zipkin
 
 import (
-	zipkinTracer "github.com/openzipkin/zipkin-go"
 	"github.com/995933447/opentracing/tracer_config"
+	zipkinTracer "github.com/openzipkin/zipkin-go"
 	"strconv"
 )
 
@@ -29,14 +29,15 @@ const (
 	SamplerTypeOptionName = "sampler"
 	)
 
+// New a zipkin deriver config.
 func NewTracerConfig(
-	brokerUrl,
+	brokerAddress,
 	localEndPointerName,
 	localEndPointerAddress string,
 	sampleType SampleType,
 	) *TracerConfig {
 	tracerConfig := new(TracerConfig)
-	tracerConfig.SetBrokerAddress(brokerUrl)
+	tracerConfig.SetBrokerAddress(brokerAddress)
 	tracerConfig.setLocalEndPointer(LocalEndPointer{Name: localEndPointerName, Address: localEndPointerAddress})
 	switch sampleType {
 		case AlwaysSampleType:
